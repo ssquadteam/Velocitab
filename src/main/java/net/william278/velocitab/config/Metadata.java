@@ -26,8 +26,7 @@ import lombok.NoArgsConstructor;
 import net.william278.desertwell.util.Version;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 @SuppressWarnings("unused")
 @Configuration
@@ -49,12 +48,6 @@ public class Metadata {
     }
 
     public void validateBuild(@NotNull Version version) {
-        int serverBuild = getBuildNumber(version.toString());
-        if (serverBuild < velocityMinimumBuild) {
-            throw new IllegalStateException("Your Velocity build version (#" + serverBuild + ") is not supported! " +
-                    "Disabling Velocitab. Please update to at least Velocity v" + velocityApiVersion
-                    + " build #" + velocityMinimumBuild + " or newer.");
-        }
     }
 
     public void validatePapiProxyBridgeVersion(@NotNull Version version) {
@@ -65,12 +58,6 @@ public class Metadata {
         }
     }
 
-    private int getBuildNumber(@NotNull String proxyVersion) {
-        final Matcher matcher = Pattern.compile(".*-b(\\d+).*").matcher(proxyVersion);
-        if (matcher.find(1)) {
-            return Integer.parseInt(matcher.group(1));
-        }
-        throw new IllegalArgumentException("No build number found for proxy version: " + proxyVersion);
-    }
+
 
 }
